@@ -1,0 +1,19 @@
+body{
+    background-color: #efefef;
+}
+
+.main{
+    background-color: white;
+    margin: 30px;
+}
+
+.btn-publish{
+    float: right;
+}
+
+.alert-publish{
+    float: left;
+}
+.div-notice{
+    padding-top: 50px;
+}
