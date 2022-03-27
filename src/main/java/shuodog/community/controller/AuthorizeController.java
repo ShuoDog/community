@@ -11,7 +11,9 @@ import shuodog.community.mapper.UserMapper;
 import shuodog.community.model.User;
 import shuodog.community.provider.GithubProvider;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 @Controller
@@ -24,38 +26,37 @@ public class AuthorizeController {
     private UserMapper userMapper;
 
     @Value("${github.client.id}")
-    private String ClientId;
+    private String CLIENT_ID;
     @Value("${github.client.secret}")
-    private String ClientSecret;
+    private String CLIENT_SECRET;
     @Value("${github.redirect.uri}")
-    private String RedirectUri;
+    private String REDIRECT_URL;
 
     @GetMapping("/callback")
-    public String callback(@RequestParam(name="code") String code,
-                           @RequestParam(name="state") String state,
-                            HttpServletRequest request) {
-        AccessTokenDTO accessTokenDTO = new AccessTokenDTO ();
-        accessTokenDTO.setClient_id(ClientId);
+    public String callback(@RequestParam(name = "code") String code,
+                           @RequestParam(name = "state") String state,
+                           HttpServletResponse response) {
+        AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
+        accessTokenDTO.setClient_id(CLIENT_ID);
         accessTokenDTO.setCode(code);
-        accessTokenDTO.setClient_secret(ClientSecret);
+        accessTokenDTO.setClient_secret(CLIENT_SECRET);
         accessTokenDTO.setState(state);
-        accessTokenDTO.setRedirect_uri(RedirectUri);
+        accessTokenDTO.setRedirect_uri(REDIRECT_URL);
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
         GithubUser githubUser = githubProvider.getUser(accessToken);
-        if(githubUser!=null){
+        if (githubUser != null && githubUser.getId() != null) {
             User user = new User();
             user.setName(githubUser.getName());
             user.setAccountId(String.valueOf(githubUser.getId()));
-            user.setToken(UUID.randomUUID().toString());//随机生产的字符串作为唯一的标识符
+            user.setAvatarUrl(githubUser.getAvatarUrl());
+            String token = UUID.randomUUID().toString();//随机生产的字符串作为唯一的标识符
+            user.setToken(token);
             user.setGmtCreate(System.currentTimeMillis());//获取生成user对象的时间
             user.setGmtModified(user.getGmtCreate());
             userMapper.insert(user);
-
-            request.getSession().setAttribute("user",githubUser);
+            response.addCookie(new Cookie("token", token));
             return "redirect:/";
-        }
-        else
-        {
+        } else {
             return "redirect:/";
         }
 

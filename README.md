@@ -73,3 +73,42 @@ Error while adding the mapper 'interface shuodog.community.mapper.UserMapper' to
                 .url("https://api.github.com/user")
                 .header("Authorization","token "+accessToken)
                 .build();
+
+
+CREATE TABLE `community`.`Untitled`  (
+`id` int NOT NULL AUTO_INCREMENT,
+`title` varchar(50) NULL,
+`description` text NULL,
+`creator` int NULL,
+`comment_count` int ZEROFILL NULL,
+`read_count` int ZEROFILL NULL,
+`like_count` int ZEROFILL NULL,
+`unlike_count` int ZEROFILL NULL,
+`tag` varchar(255) NULL,
+PRIMARY KEY (`id`)
+);
+
+
+进度9通过bootstrap来快速搭建发布问题界面
+
+唔，之前写的流式界面还有点问题，虽然分左右两栏，并且在缩写页面时让右栏下滑
+但是右栏会和左边的发布按钮以及警告框重叠
+暂时是修改了右栏的padding-top值
+
+报错报错还是报错，数据库语句不是少括号，就是名字打错，而且报警告也不报错
+返回的字符串也写错了，太难了，查了两天两夜的BUG
+
+唔，虽然用随机生成的UUID作为一个唯一标识符token储存在数据库和网页cookie中
+但是要手动清除网页cookie或者从数据库里删除，有点麻烦，而且网页cookie为空会报错
+需要手动判断一下
+
+额，不同于登录按钮和用户名的显示，在发布问题的页面中
+需要使用不同的th模板来传值，在页面中用th:value来传值，在后台也同样用value获取值，
+并且需要设置required = false，因为需要显示错误信息到网页上，而不是在后台报错
+唔，但是文本框可以正常传值，输入框还不行
+
+进度10新增头像url获取的属性
+考虑获取GitHub中的用户头像并显示出来
+需要在user中重新添加属性，重新设置git方法，好麻烦- -。
+又学会使用新的插件lombok了，用这个插件可以不用手动设置get、set方法
+接下来把头像合理的显示在界面上即可
