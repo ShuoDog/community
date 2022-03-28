@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/community.css">
     <script src="js/bootstrap.min.js" type="application/javascript"></script>
 </head>
 <body>
@@ -19,7 +20,7 @@
                 <!--                <span class="icon-bar"></span>-->
                 <!--                <span class="icon-bar"></span>-->
             </button>
-            <a class="navbar-brand" href="#">硕狗论坛</a>
+            <a class="navbar-brand" href="/">硕狗论坛</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -71,5 +72,44 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
+
+<div class="container-fluid main">
+    <div class="row">
+        <div class="col-md-8">
+            <h2><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>发现</h2>
+            <hr>
+
+            <div class="media" th:each="questionDto:${questionDtoList}">
+                <div class="media-left">
+                    <a href="#">
+                        <img class="media-object img-thumbnail"
+                             th:src="${questionDto.user.avatarUrl}">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading" th:text="${questionDto.title}"></h4>
+                    <span th:text="${questionDto.description}"></span>
+                    <br>
+                    <span class="text-subjoin">
+                        <span th:text="${questionDto.commentCount}"></span>个回复·
+                        <span th:text="${questionDto.getReadCount}"></span>次浏览·
+                        <span th:text="${#dates.format(questionDto.getGmtCreate, 'dd MMMM yyyy')}"></span>
+                    </span>
+
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="col-md-4 div-notice">
+            <h3>热门话题</h3>
+            在controller出现警告，并且项目无法运行，于是在HelloController中添加了@ResponseBody的注解。（添加ResponseBody是错误的！！！）
+            启动第一个spring boot项目（但是提交的数据没有被表单正确接收，不晓得是地址错误还是数据错误）（已解决，参考下文）
+            正在将项目上传至github：
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

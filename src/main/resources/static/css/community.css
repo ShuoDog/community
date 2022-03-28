@@ -17,3 +17,12 @@ body{
 .div-notice{
     padding-top: 50px;
 }
+.media-object{
+    width: 57px;
+    height: 57px;
+}
+.text-subjoin{
+    font-size: 10px;
+    font-weight: normal;
+    color: gray;
+}
