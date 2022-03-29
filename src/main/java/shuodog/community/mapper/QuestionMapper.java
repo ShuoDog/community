@@ -2,6 +2,7 @@ package shuodog.community.mapper;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import shuodog.community.model.Question;
 
@@ -14,6 +15,9 @@ public interface QuestionMapper {
             "values (#{title},#{description},#{creator},#{tag},#{gmtCreate},#{gmtModified})")
     void create(Question question);
 
-    @Select("select * from question")
-    List<Question> list();
+    @Select("select * from question limit #{limit},#{size}")
+    List<Question> list(@Param(value = "limit") Integer limit, @Param(value = "size")Integer size);
+
+    @Select("select count(1) from question")
+    Integer count();
 }

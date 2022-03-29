@@ -3,6 +3,7 @@ package shuodog.community.Service;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import shuodog.community.dto.PaginationDto;
 import shuodog.community.dto.QuestionDto;
 import shuodog.community.mapper.QuestionMapper;
 import shuodog.community.mapper.UserMapper;
@@ -21,10 +22,19 @@ public class QuestionService {
     @Autowired
     private UserMapper userMapper;
 
-    public List<QuestionDto> list()
+    public PaginationDto list(Integer currentPage, Integer size)
     {
-        List<Question> questionList=questionMapper.list();
+        PaginationDto paginationDto = new PaginationDto();
+        Integer total = questionMapper.count();
+        paginationDto.setPagination(total,currentPage,size);
+
+        if(currentPage<1)currentPage=1;
+        else if(currentPage>paginationDto.getTotalPage())currentPage=paginationDto.getTotalPage();
+
+        Integer limit=size*(currentPage-1);
+        List<Question> questionList=questionMapper.list(limit,size);
         List<QuestionDto> questionDtoList = new ArrayList<>();
+
         for (Question question:questionList){
             User user =userMapper.findByID(question.getCreator());
             QuestionDto questionDto=new QuestionDto();
@@ -32,6 +42,9 @@ public class QuestionService {
             questionDto.setUser(user);
             questionDtoList.add(questionDto);
         }
-        return questionDtoList;
+
+        paginationDto.setQuestionDtoList(questionDtoList);
+
+        return paginationDto;
     }
 }
