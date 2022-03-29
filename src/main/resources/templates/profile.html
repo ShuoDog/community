@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>硕狗论坛</title>
+    <title>个人中心</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="css/community.css">
-    <script src="js/jquery-3.6.0.js" type="application/javascript"></script>
-    <script src="js/bootstrap.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <script src="/js/jquery-3.6.0.js" type="application/javascript"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
 </head>
 <body>
 
@@ -16,7 +16,7 @@
 <div class="container-fluid main">
     <div class="row">
         <div class="col-md-8">
-            <h2><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>发现</h2>
+            <h2><span th:text="${sectionName}"></span></h2>
             <hr>
 
             <div class="media" th:each="questionDto:${paginationDto.questionDtoList}">
@@ -43,27 +43,27 @@
                 <ul class="pagination">
 
                     <li th:if="${paginationDto.showFirstPage}">
-                        <a href="/?page=1" aria-label="Previous">
+                        <a th:href="@{'/profile/'+${section}(currentPage=${1})}" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                     <li th:if="${paginationDto.showPreviousPage}">
-                        <a th:href="@{/(currentPage=${paginationDto.currentPage - 1})}" aria-label="Previous">
+                        <a th:href="@{'/profile/'+${section}(currentPage=${paginationDto.currentPage - 1})}" aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
 
                     <li th:each="currentPage : ${paginationDto.pages}" th:class="${paginationDto.currentPage==currentPage}? 'active': ''">
-                        <a th:href="@{/(currentPage=${currentPage})}" th:text="${currentPage}"></a>
+                        <a th:href="@{'/profile/'+${section}(currentPage=${currentPage})}" th:text="${currentPage}"></a>
                     </li>
 
                     <li th:if="${paginationDto.showNextPage}">
-                        <a th:href="@{/(currentPage=${paginationDto.currentPage + 1})}" aria-label="Next">
+                        <a th:href="@{'/profile/'+${section}(currentPage=${paginationDto.currentPage + 1})}" aria-label="Next">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>
                     <li th:if="${paginationDto.showEndPage}">
-                        <a th:href="@{/(currentPage=${paginationDto.totalPage})}" aria-label="Next">
+                        <a th:href="@{'/profile/'+${section}(currentPage=${paginationDto.totalPage})}" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
@@ -72,11 +72,14 @@
 
         </div>
 
-        <div class="col-md-4 div-notice">
-            <h3>热门话题</h3>
-            在controller出现警告，并且项目无法运行，于是在HelloController中添加了@ResponseBody的注解。（添加ResponseBody是错误的！！！）
-            启动第一个spring boot项目（但是提交的数据没有被表单正确接收，不晓得是地址错误还是数据错误）（已解决，参考下文）
-            正在将项目上传至github：
+        <div class="col-md-4">
+            <div class="list-group">
+                <a href="/profile/questions" th:class="${section=='questions'}? 'active list-group-item': 'list-group-item'">我的提问</a>
+                <a href="/profile/replies"   th:class="${section=='replies'}?   'active list-group-item': 'list-group-item'">最新回复<span class="badge">14</span></a>
+                <a href="#" class="list-group-item">Morbi leo risus</a>
+                <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+                <a href="#" class="list-group-item">Vestibulum at eros</a>
+            </div>
         </div>
     </div>
 </div>

@@ -24,12 +24,27 @@ public class QuestionService {
 
     public PaginationDto list(Integer currentPage, Integer size)
     {
-        PaginationDto paginationDto = new PaginationDto();
+        Integer totalPage;
         Integer total = questionMapper.count();
-        paginationDto.setPagination(total,currentPage,size);
+        PaginationDto paginationDto = new PaginationDto();
 
-        if(currentPage<1)currentPage=1;
-        else if(currentPage>paginationDto.getTotalPage())currentPage=paginationDto.getTotalPage();
+        if(total%size==0){
+            totalPage=total/size;
+        }
+        else {
+            totalPage=total/size+1;
+        }
+
+        if(currentPage<1)
+        {
+            currentPage=1;
+        }
+        else if(currentPage>totalPage)
+        {
+            currentPage=totalPage;
+        }
+
+        paginationDto.setPagination(totalPage,currentPage);
 
         Integer limit=size*(currentPage-1);
         List<Question> questionList=questionMapper.list(limit,size);
@@ -47,4 +62,48 @@ public class QuestionService {
 
         return paginationDto;
     }
+
+    public PaginationDto list(Integer userId,Integer currentPage,Integer size)
+    {
+
+        Integer totalPage;
+        Integer total = questionMapper.countByUserId(userId);
+        PaginationDto paginationDto = new PaginationDto();
+
+        if(total%size==0){
+            totalPage=total/size;
+        }
+        else {
+            totalPage=total/size+1;
+        }
+
+        if(currentPage<1)
+        {
+            currentPage=1;
+        }
+        else if(currentPage>totalPage&&totalPage>0)
+        {
+            currentPage=totalPage;
+        }
+
+        paginationDto.setPagination(totalPage,currentPage);
+
+        Integer limit=size*(currentPage-1);
+        List<Question> questionList=questionMapper. listByUserId(userId,limit,size);
+        List<QuestionDto> questionDtoList = new ArrayList<>();
+
+        for (Question question:questionList){
+            User user =userMapper.findByID(question.getCreator());
+            QuestionDto questionDto=new QuestionDto();
+            BeanUtils.copyProperties(question,questionDto);
+            questionDto.setUser(user);
+            questionDtoList.add(questionDto);
+        }
+
+        paginationDto.setQuestionDtoList(questionDtoList);
+
+        return paginationDto;
+    }
+
+
 }
