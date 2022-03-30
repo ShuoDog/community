@@ -28,7 +28,8 @@ public class QuestionService {
         Integer total = questionMapper.count();
         PaginationDto paginationDto = new PaginationDto();
 
-        if(total%size==0){
+        if(total==0)totalPage=1;
+        else if(total%size==0){
             totalPage=total/size;
         }
         else {
