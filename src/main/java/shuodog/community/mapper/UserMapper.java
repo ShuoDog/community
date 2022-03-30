@@ -15,7 +15,7 @@ public interface UserMapper {
     @Select("select * from user where id = #{id}")
     User findByID(@Param("id") Integer id);
 
-    @Select("select * from user where id = #{accountId}")
+    @Select("select * from user where account_id = #{accountId}")
     User findByAccountId(@Param("accountId") String accountId);
 
     @Update("update user set name=#{name},avatar_url=#{avatarUrl},token = #{token},gmt_modified=#{gmtModified} where id = #{id}")
