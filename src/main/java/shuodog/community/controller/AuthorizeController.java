@@ -5,9 +5,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import shuodog.community.Service.UserService;
 import shuodog.community.dto.AccessTokenDTO;
 import shuodog.community.dto.GithubUser;
-import shuodog.community.mapper.UserMapper;
 import shuodog.community.model.User;
 import shuodog.community.provider.GithubProvider;
 
@@ -23,7 +23,7 @@ public class AuthorizeController {
     private GithubProvider githubProvider;
 
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
     @Value("${github.client.id}")
     private String CLIENT_ID;
@@ -53,12 +53,24 @@ public class AuthorizeController {
             user.setToken(token);
             user.setGmtCreate(System.currentTimeMillis());//获取生成user对象的时间
             user.setGmtModified(user.getGmtCreate());
-            userMapper.insert(user);
+            userService.createOrUpdate(user);
             response.addCookie(new Cookie("token", token));
             return "redirect:/";
         } else {
             return "redirect:/";
         }
 
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request,
+                         HttpServletResponse response
+    ){
+        request.getSession().removeAttribute("user");
+        Cookie cookie=new Cookie("token",null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        System.out.println("退出登录成功");
+        return "redirect:/";
     }
 }
