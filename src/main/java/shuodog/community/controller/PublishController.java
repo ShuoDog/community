@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import shuodog.community.mapper.QuestionMapper;
+import shuodog.community.Service.QuestionService;
+import shuodog.community.dto.QuestionDto;
 import shuodog.community.model.Question;
 import shuodog.community.model.User;
 
@@ -16,18 +18,32 @@ import javax.servlet.http.HttpServletRequest;
 public class PublishController {
 
     @Autowired
-    private QuestionMapper questionMapper;
+    private QuestionService questionService;
 
     @GetMapping("/publish")
     public String publish() {
         return "publish";
     }
 
+    @GetMapping("/publish/{id}")
+    public String edit(@PathVariable(name = "id")Integer id,
+                       Model model
+    ) {
+        QuestionDto questionDto = questionService.getById(id);
+        model.addAttribute("title", questionDto.getTitle());
+        model.addAttribute("description", questionDto.getDescription());
+        model.addAttribute("tag", questionDto.getTag());
+        model.addAttribute("id",questionDto.getId());
+        return "publish";
+    }
+
+
     @PostMapping("/publish")
     public String postPublish(
             @RequestParam(value = "title", required = false) String title,
             @RequestParam(value = "description", required = false) String description,
             @RequestParam(value = "tag", required = false) String tag,
+            @RequestParam(value = "id",required = false)Integer id,
             HttpServletRequest request,
             Model model
     ) {
@@ -56,10 +72,10 @@ public class PublishController {
         question.setDescription(description);
         question.setTag(tag);
         question.setCreator(user.getId());
-        question.setGmtCreate(System.currentTimeMillis());
-        question.setGmtModified(question.getGmtCreate());
-        questionMapper.create(question);
-        System.out.println("创建问题成功");
+
+        question.setId(id);//主键存在被修改的风险！！！
+
+        questionService.createOrUpdate(question);
         return "redirect:/";
     }
 }

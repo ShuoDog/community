@@ -71,7 +71,8 @@ public class QuestionService {
         Integer total = questionMapper.countByUserId(userId);
         PaginationDto paginationDto = new PaginationDto();
 
-        if(total%size==0){
+        if(total==0)totalPage=1;
+        else if(total%size==0){
             totalPage=total/size;
         }
         else {
@@ -114,5 +115,21 @@ public class QuestionService {
         User user =userMapper.findByID(question.getCreator());
         questionDto.setUser(user);
         return questionDto;
+    }
+
+    public void createOrUpdate(Question question) {
+        if(question.getId()==null)
+        {
+            question.setGmtCreate(System.currentTimeMillis());
+            question.setGmtModified(question.getGmtCreate());
+            questionMapper.create(question);
+            System.out.println("创建问题成功");
+        }
+        else
+        {
+            question.setGmtModified(System.currentTimeMillis());
+            questionMapper.update(question);
+            System.out.println("修改问题成功");
+        }
     }
 }

@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import shuodog.community.Service.QuestionService;
 import shuodog.community.dto.PaginationDto;
 
-import javax.servlet.http.HttpServletRequest;
-
 
 @Controller
 public class IndexController {
@@ -20,7 +18,6 @@ public class IndexController {
     @GetMapping("/")
     public String index(@RequestParam(name = "currentPage",defaultValue = "1")Integer currentPage,
                         @RequestParam(name = "size",defaultValue = "2")Integer size,
-                        HttpServletRequest request,
                         Model model) {
 
         PaginationDto paginationDto = questionService.list(currentPage,size);

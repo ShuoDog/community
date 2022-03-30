@@ -32,6 +32,7 @@ public class ProfileController {
         User user=(User) request.getSession().getAttribute("user");
 
         if(user==null){
+            System.out.println("用户未登录，回到首页");
             return "redirect:/";
         }
 

@@ -18,10 +18,11 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(sessionInterceptor).addPathPatterns("/**");
     }
 
+
+    //这个函数用于防止静态资源被拦截器拦截导致无法注入
     private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {
             "classpath:/META-INF/resources/", "classpath:/resources/",
             "classpath:/static/", "classpath:/public/" };
-
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

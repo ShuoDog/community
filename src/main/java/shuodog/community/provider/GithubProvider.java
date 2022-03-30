@@ -16,6 +16,7 @@ public class GithubProvider {
 
 //        OkHttpClient client = new OkHttpClient();
 
+        //可能电脑不行，或者网络不行，请求经常超时，重新设置久一点
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(20, TimeUnit.SECONDS)
@@ -26,6 +27,7 @@ public class GithubProvider {
                 .url("https://github.com/login/oauth/access_token")
                 .post(body)
                 .build();
+
         try (Response response = client.newCall(request).execute()) {
             String string = response.body().string();
             String token = string.split("&")[0].split("=")[1];
@@ -40,15 +42,18 @@ public class GithubProvider {
 
 //        OkHttpClient client = new OkHttpClient();
 
+        //可能电脑不行，或者网络不行，请求经常超时，重新设置久一点
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(20, TimeUnit.SECONDS)
                 .build();
 
+//        此方法已经被GitHub废弃，因为不安全
 //        Request request = new Request.Builder()
 //                .url("https://api.github.com/user?access_token="+accessToken)
 //                .build();
 
+        //GitHub重新修改了第三方登录的请求方法
         Request request = new Request.Builder()
                 .url("https://api.github.com/user")
                 .header("Authorization", "token " + accessToken)
