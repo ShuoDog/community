@@ -32,7 +32,7 @@ public class SessionInterceptor implements HandlerInterceptor {
                 }
             }
         }
-        System.out.println("拦截器工作啦");
+//        System.out.println("拦截器工作啦");
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }
 
