@@ -49,7 +49,7 @@ public class AuthorizeController {
             user.setName(githubUser.getName());
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setAvatarUrl(githubUser.getAvatarUrl());
-            String token = UUID.randomUUID().toString();//随机生产的字符串作为唯一的标识符
+            String token = UUID.randomUUID().toString();//随机生产的字符串作为唯一的标识符放在cookie里
             user.setToken(token);
             user.setGmtCreate(System.currentTimeMillis());//获取生成user对象的时间
             user.setGmtModified(user.getGmtCreate());
