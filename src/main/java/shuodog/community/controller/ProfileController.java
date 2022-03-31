@@ -25,7 +25,7 @@ public class ProfileController {
     @GetMapping("/profile/{action}")
     public String profile(@PathVariable(name = "action") String action,
                           @RequestParam(name = "currentPage",defaultValue = "1")Integer currentPage,
-                          @RequestParam(name = "size",defaultValue = "1 ")Integer size,
+                          @RequestParam(name = "limit",defaultValue = "1 ")Integer limit,
                           HttpServletRequest request,
                           Model model) {
 
@@ -47,7 +47,7 @@ public class ProfileController {
             model.addAttribute("sectionName","最新回复");
         }
 
-        PaginationDto paginationDto = questionService.list(user.getId(),currentPage,size);
+        PaginationDto paginationDto = questionService.list(user.getId(),currentPage, limit);
         model.addAttribute("paginationDto",paginationDto);
 
         return "profile";

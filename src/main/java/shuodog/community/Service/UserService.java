@@ -19,7 +19,7 @@ public class UserService {
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtModified());
             userMapper.insert(user);
-            System.out.println("创建成功");
+            System.out.println("创建用户成功");
         }
         else
         {
@@ -28,7 +28,7 @@ public class UserService {
             userData.setAvatarUrl(user.getAvatarUrl());
             userData.setToken(user.getToken());
             userMapper.update(userData);
-            System.out.println("修改成功");
+            System.out.println("重新登录成功");
         }
     }
 }
