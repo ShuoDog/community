@@ -268,3 +268,7 @@ add（当前页+i）
 通过判断id是否有值来确定是修改问题还是创建问题
 额，我觉得是存在修改主键的风险的，但是暂时没啥问题
 还是不要管他了
+
+记录一下mybatis.generator命令
+mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate//好吧，这条的前半部分识别不出来- -。
+mvn mybatis-generator:generate
