@@ -17,10 +17,12 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(@RequestParam(name = "currentPage",defaultValue = "1")Integer currentPage,
-                        @RequestParam(name = "size",defaultValue = "2")Integer size,
+                        @RequestParam(name = "limit",defaultValue = "2")Integer limit,
                         Model model) {
 
-        PaginationDto paginationDto = questionService.list(currentPage,size);
+        //根据用户查询来统合代码，统一参数，用户ID为user表主键，不可能为负数，故以此来判断是首页查询
+        PaginationDto paginationDto = questionService.list(-1,currentPage, limit);
+
         model.addAttribute("paginationDto", paginationDto);
         return "index";
     }
