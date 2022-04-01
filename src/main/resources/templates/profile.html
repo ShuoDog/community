@@ -31,8 +31,8 @@
                     <span th:text="${questionDto.description}"></span>
                     <br>
                     <span class="text-subjoin">
-                        <span th:text="${questionDto.commentCount}"></span>个回复·
-                        <span th:text="${questionDto.getReadCount}"></span>次浏览·
+                        <span th:text="${questionDto.getReadCount}"></span>次浏览&nbsp;·&nbsp;
+                        <span th:text="${questionDto.commentCount}"></span>个回复&nbsp;|
                         <span th:text="${#dates.format(questionDto.getGmtCreate, 'yyyy-MM-dd HH:mm')}"></span>
                     </span>
 

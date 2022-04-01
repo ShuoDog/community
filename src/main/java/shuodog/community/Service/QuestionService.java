@@ -105,6 +105,10 @@ public class QuestionService {
     public void createOrUpdate(Question question) {
         if(question.getId()==null)
         {
+            question.setReadCount(0);
+            question.setCommentCount(0);
+            question.setLikeCount(0);
+            question.setUnlikeCount(0);
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
             questionMapper.create(question);
@@ -116,5 +120,9 @@ public class QuestionService {
             questionMapper.update(question);
             System.out.println("修改问题成功");
         }
+    }
+
+    public void addReadCount(Integer id) {
+        questionMapper.updateReadCount(id);
     }
 }

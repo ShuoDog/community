@@ -8,8 +8,8 @@ import java.util.List;
 @Mapper
 public interface QuestionMapper {
 
-    @Insert("insert into question (title,description,creator,tag,gmt_create,gmt_modified) " +
-            "values (#{title},#{description},#{creator},#{tag},#{gmtCreate},#{gmtModified})")
+    @Insert("insert into question (title,description,creator,tag,read_count,comment_count,like_count,unlike_count,gmt_create,gmt_modified) " +
+            "values (#{title},#{description},#{creator},#{tag},#{readCount},#{commentCount},#{likeCount},#{unlikeCount}#{gmtCreate},#{gmtModified})")
     void create(Question question);
 
     @Select("select count(1) from question")
@@ -31,4 +31,7 @@ public interface QuestionMapper {
     @Update("update question set title=#{title}, description=#{description}, " +
             "tag=#{tag}, gmt_modified=#{gmtModified} where id=#{id}")
     void update(Question question);
+
+    @Update("update question set read_count=read_count+1 where id=#{id}")
+    void updateReadCount(Integer id);
 }
