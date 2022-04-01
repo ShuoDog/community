@@ -2,20 +2,29 @@ package shuodog.community.exception;
 
 public class ExceptionMessage extends RuntimeException{
 
-    private String message;
-
-    public ExceptionMessage(String message)
-    {
-        this.message=message;
-    }
+    private String errorCode;
+    private String errorMessage;
 
     public ExceptionMessage(EnumExceptionInterface enumExceptionInterface)
     {
-        this.message=enumExceptionInterface.getMessage();
+        super(enumExceptionInterface.getStateCode());
+        this.errorCode=enumExceptionInterface.getStateCode();
+        this.errorMessage=enumExceptionInterface.getStateMessage();
     }
 
-    @Override
-    public String getMessage() {
-        return message;
+    public ExceptionMessage(String errorCode,String errorMessage){
+        super(errorCode);
+        this.errorCode=errorCode;
+        this.errorMessage=errorMessage;
     }
+
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
 }
