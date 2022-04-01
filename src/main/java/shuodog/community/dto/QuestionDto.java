@@ -17,4 +17,5 @@ public class QuestionDto {
     private Long gmtCreate;
     private Long gmtModified;
     private User user;
+
 }

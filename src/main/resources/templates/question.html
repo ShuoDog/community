@@ -18,8 +18,9 @@
         <div class="col-md-8">
             <h2><span th:text="${questionDto.title}"></span></h2>
             <span class="text-subjoin">
-                <span th:text="${questionDto.getReadCount}"></span>次浏览|
-                发布于：<span th:text="${#dates.format(questionDto.getGmtCreate, 'yyyy-MM-dd')}"></span>
+                <span th:text="${questionDto.getReadCount}"></span>次浏览&nbsp;·&nbsp;
+                <span th:text="${questionDto.commentCount}"></span>个回复&nbsp;|
+                最后修改时间：<span th:text="${#dates.format(questionDto.getGmtCreate, 'yyyy-MM-dd')}"></span>
             </span>
             <hr>
             <div th:text="${questionDto.description}"></div>

@@ -18,9 +18,6 @@ public class ExceptionController implements ErrorController {
         EnumExceptionImplements enumExceptionImplements = null;
         switch (response.getStatus())
         {
-            case 200:
-                enumExceptionImplements=EnumExceptionImplements.SUCCESS;
-                break;
             case 400:
                 enumExceptionImplements=EnumExceptionImplements.BODY_NOT_MATCH;
                 break;
