@@ -12,12 +12,14 @@ public class AdviceExceptionHandler {
     {
         if(e instanceof ExceptionMessage)
         {
-            model.addAttribute("message",e.getMessage());
+            ExceptionMessage exceptionMessage =(ExceptionMessage) e;
+            String message = "错误："+exceptionMessage.getErrorCode()+" "+exceptionMessage.getErrorMessage();
+            System.out.println("错误："+exceptionMessage.getErrorCode()+"\n"+exceptionMessage.getErrorMessage());
+            model.addAttribute("message",message);
         }
         else {
             model.addAttribute("message","服务器出现故障，请稍后再试！");
         }
-
         return new ModelAndView("error");
     }
     

@@ -2,20 +2,25 @@ package shuodog.community.exception;
 
 public enum EnumExceptionImplements implements EnumExceptionInterface {
 
-    QUESTION_NOT_FOUND("你找的问题不在了");
+    SUCCESS("200", "成功!"),
+    BODY_NOT_MATCH("400","请求的数据格式不符!"),
+    SIGNATURE_NOT_MATCH("401","请求的数字签名不匹配!"),
+    NOT_FOUND("404", "未找到该资源!"),
+    QUESTION_NOT_FOUND("404","你找的问题不在了"),
+    INTERNAL_SERVER_ERROR("500", "服务器内部错误!"),
+    SERVER_BUSY("503","服务器正忙，请稍后再试!");
 
-    private String message;
+    private String stateCode;
+    private String stateMessage;
 
-    public String getMessage()
-    {
-        return message;
+    EnumExceptionImplements(String stateCode, String stateMessage) {
+        this.stateCode = stateCode;
+        this.stateMessage = stateMessage;
     }
 
-    EnumExceptionImplements(String message)
-    {
-        this.message=message;
+    public String getStateCode() {return stateCode;}
+
+    public String getStateMessage() {
+        return stateMessage;
     }
-
-
-
 }

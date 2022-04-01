@@ -1,42 +1,43 @@
 package shuodog.community.controller;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import shuodog.community.exception.EnumExceptionImplements;
+import shuodog.community.exception.ExceptionMessage;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/error")
 public class ExceptionController implements ErrorController {
 
     @RequestMapping(produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView modelAndView(HttpServletRequest request,
-                                     Model model){
-        HttpStatus status =getStatus(request);
-        if(status.is4xxClientError()){
-            model.addAttribute("message","请求出错，请检查输入网址");
+    public void errorPathHandler(HttpServletResponse response){
+        EnumExceptionImplements enumExceptionImplements = null;
+        switch (response.getStatus())
+        {
+            case 200:
+                enumExceptionImplements=EnumExceptionImplements.SUCCESS;
+                break;
+            case 400:
+                enumExceptionImplements=EnumExceptionImplements.BODY_NOT_MATCH;
+                break;
+            case 401:
+                enumExceptionImplements=EnumExceptionImplements.SIGNATURE_NOT_MATCH;
+                break;
+            case 404:
+                enumExceptionImplements=EnumExceptionImplements.NOT_FOUND;
+                break;
+            case 500:
+                enumExceptionImplements=EnumExceptionImplements.INTERNAL_SERVER_ERROR;
+                break;
+            case 503:
+                enumExceptionImplements=EnumExceptionImplements.SERVER_BUSY;
+                break;
         }
-        if (status.is5xxServerError()){
-            model.addAttribute("message","等待服务器重置中，请稍后再试");
-        }
-        return new ModelAndView("error");
-    }
-
-    private HttpStatus getStatus(HttpServletRequest request) {
-        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
-        if (statusCode == null) {
-            return HttpStatus.INTERNAL_SERVER_ERROR;
-        }
-        try {
-            return HttpStatus.valueOf(statusCode);
-        }catch (Exception ex){
-            return HttpStatus.INTERNAL_SERVER_ERROR;
-        }
+        throw new ExceptionMessage(enumExceptionImplements);
 
     }
 
