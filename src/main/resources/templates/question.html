@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="${questionDto.title}"></title>
+    <title th:text="${questionDTO.title}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
@@ -16,17 +16,17 @@
 <div class="container-fluid main">
     <div class="row">
         <div class="col-md-8">
-            <h2><span th:text="${questionDto.title}"></span></h2>
+            <h2><span th:text="${questionDTO.title}"></span></h2>
             <span class="text-subjoin">
-                <span th:text="${questionDto.getReadCount}"></span>次浏览&nbsp;·&nbsp;
-                <span th:text="${questionDto.commentCount}"></span>个回复&nbsp;|
-                最后修改时间：<span th:text="${#dates.format(questionDto.getGmtCreate, 'yyyy-MM-dd')}"></span>
+                <span th:text="${questionDTO.readCount}"></span>次浏览&nbsp;·&nbsp;
+                <span th:text="${questionDTO.commentCount}"></span>个回复&nbsp;|&nbsp;最后修改于：
+                <span th:text="${#dates.format(questionDTO.gmtModified, 'yyyy-MM-dd')}"></span>
             </span>
             <hr>
-            <div th:text="${questionDto.description}"></div>
+            <div th:text="${questionDTO.description}"></div>
             <hr>
 
-            <a th:href="@{'/publish/'+${questionDto.id}}" th:if="${session.user!=null&&session.user.id==questionDto.creator}">
+            <a th:href="@{'/publish/'+${questionDTO.id}}" th:if="${session.user!=null&&session.user.id==questionDTO.creator}">
                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>编辑
             </a>
 
@@ -40,11 +40,11 @@
 
                         <div class="media">
                             <div class="media-left">
-                                <a href="#"><img class="media-object img-thumbnail" th:src="${questionDto.user.avatarUrl}"></a>
+                                <a href="#"><img class="media-object img-thumbnail" th:src="${questionDTO.user.avatarUrl}"></a>
                             </div>
 
                             <div class="media-body">
-                                <h4 class="media-heading" th:text="${questionDto.user.name}"></h4>
+                                <h4 class="media-heading" th:text="${questionDTO.user.name}"></h4>
                             </div>
                         </div>
                     </div>

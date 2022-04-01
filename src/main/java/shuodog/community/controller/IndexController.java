@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import shuodog.community.Service.QuestionService;
-import shuodog.community.dto.PaginationDto;
+import shuodog.community.dto.PaginationDTO;
 
 
 @Controller
@@ -21,9 +21,9 @@ public class IndexController {
                         Model model) {
 
         //根据用户查询来统合代码，统一参数，用户ID为user表主键，不可能为负数，故以此来判断是首页查询
-        PaginationDto paginationDto = questionService.list(-1,currentPage, limit);
+        PaginationDTO paginationDTO = questionService.list(-1,currentPage, limit);
 
-        model.addAttribute("paginationDto", paginationDto);
+        model.addAttribute("paginationDTO", paginationDTO);
         return "index";
     }
 }

@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import shuodog.community.Service.QuestionService;
-import shuodog.community.dto.QuestionDto;
+import shuodog.community.dto.QuestionDTO;
 
 @Controller
 public class QuestionController {
@@ -19,8 +19,8 @@ public class QuestionController {
                            Model model
     ) {
         questionService.addReadCount(id);
-        QuestionDto questionDto =questionService.getById(id);
-        model.addAttribute("questionDto",questionDto);
+        QuestionDTO questionDTO =questionService.getById(id);
+        model.addAttribute("questionDTO",questionDTO);
         return "question";
     }
 }
