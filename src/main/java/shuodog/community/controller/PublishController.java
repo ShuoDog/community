@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import shuodog.community.Service.QuestionService;
-import shuodog.community.dto.QuestionDto;
+import shuodog.community.dto.QuestionDTO;
 import shuodog.community.model.Question;
 import shuodog.community.model.User;
 
@@ -29,11 +29,11 @@ public class PublishController {
     public String edit(@PathVariable(name = "id")Integer id,
                        Model model
     ) {
-        QuestionDto questionDto = questionService.getById(id);
-        model.addAttribute("title", questionDto.getTitle());
-        model.addAttribute("description", questionDto.getDescription());
-        model.addAttribute("tag", questionDto.getTag());
-        model.addAttribute("id",questionDto.getId());
+        QuestionDTO questionDTO = questionService.getById(id);
+        model.addAttribute("title", questionDTO.getTitle());
+        model.addAttribute("description", questionDTO.getDescription());
+        model.addAttribute("tag", questionDTO.getTag());
+        model.addAttribute("id",questionDTO.getId());
         return "publish";
     }
 

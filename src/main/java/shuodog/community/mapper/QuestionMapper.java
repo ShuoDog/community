@@ -8,8 +8,8 @@ import java.util.List;
 @Mapper
 public interface QuestionMapper {
 
-    @Insert("insert into question (title,description,creator,tag,read_count,comment_count,like_count,unlike_count,gmt_create,gmt_modified) " +
-            "values (#{title},#{description},#{creator},#{tag},#{readCount},#{commentCount},#{likeCount},#{unlikeCount}#{gmtCreate},#{gmtModified})")
+    @Insert("insert into question (title,description,creator,tag,gmt_create,gmt_modified) " +
+            "values (#{title},#{description},#{creator},#{tag},#{gmtCreate},#{gmtModified})")
     void create(Question question);
 
     @Select("select count(1) from question")

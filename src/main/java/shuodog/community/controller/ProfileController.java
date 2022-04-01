@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import shuodog.community.Service.QuestionService;
-import shuodog.community.dto.PaginationDto;
+import shuodog.community.dto.PaginationDTO;
 import shuodog.community.mapper.UserMapper;
 import shuodog.community.model.User;
 
@@ -47,8 +47,8 @@ public class ProfileController {
             model.addAttribute("sectionName","最新回复");
         }
 
-        PaginationDto paginationDto = questionService.list(user.getId(),currentPage, limit);
-        model.addAttribute("paginationDto",paginationDto);
+        PaginationDTO paginationDTO = questionService.list(user.getId(),currentPage, limit);
+        model.addAttribute("paginationDTO",paginationDTO);
 
         return "profile";
 

@@ -4,7 +4,7 @@ import lombok.Data;
 import shuodog.community.model.User;
 
 @Data
-public class QuestionDto {
+public class QuestionDTO {
     private Integer id;
     private Integer creator;
     private Integer readCount;
