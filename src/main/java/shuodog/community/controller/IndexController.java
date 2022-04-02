@@ -17,7 +17,7 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(@RequestParam(name = "currentPage",defaultValue = "1")Integer currentPage,
-                        @RequestParam(name = "limit",defaultValue = "2")Integer limit,
+                        @RequestParam(name = "limit",defaultValue = "6")Integer limit,
                         Model model) {
 
         //根据用户查询来统合代码，统一参数，用户ID为user表主键，不可能为负数，故以此来判断是首页查询

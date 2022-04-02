@@ -33,6 +33,7 @@ public class ExceptionController implements ErrorController {
             case 503:
                 enumExceptionImplements=EnumExceptionImplements.SERVER_BUSY;
                 break;
+            default:return;
         }
         throw new ExceptionMessage(enumExceptionImplements);
 

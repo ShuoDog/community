@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/community.css">
     <script src="/js/jquery-3.6.0.js" type="application/javascript"></script>
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="/js/community.js" type="application/javascript"></script>
 </head>
 <body>
 
@@ -16,19 +17,40 @@
 <div class="container-fluid main">
     <div class="row">
         <div class="col-md-8">
-            <h2><span th:text="${questionDTO.title}"></span></h2>
-            <span class="text-subjoin">
-                <span th:text="${questionDTO.readCount}"></span>次浏览&nbsp;·&nbsp;
-                <span th:text="${questionDTO.commentCount}"></span>个回复&nbsp;|&nbsp;最后修改于：
-                <span th:text="${#dates.format(questionDTO.gmtModified, 'yyyy-MM-dd')}"></span>
-            </span>
-            <hr>
-            <div th:text="${questionDTO.description}"></div>
-            <hr>
+            <div>
+                <h2><span th:text="${questionDTO.title}"></span></h2>
+                <span class="text-subjoin">
+                            <span th:text="${questionDTO.readCount}"></span>次浏览&nbsp;·&nbsp;
+                            <span th:text="${questionDTO.commentCount}"></span>个回复&nbsp;|&nbsp;最后修改于：
+                            <span th:text="${#dates.format(questionDTO.gmtModified, 'yyyy-MM-dd')}"></span>
+                </span>
+                &nbsp;|&nbsp;
 
-            <a th:href="@{'/publish/'+${questionDTO.id}}" th:if="${session.user!=null&&session.user.id==questionDTO.creator}">
-                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>编辑
-            </a>
+                <a th:href="@{'/publish/'+${questionDTO.id}}" th:if="${session.user!=null&&session.user.id==questionDTO.creator}">
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>编辑
+                </a>
+
+                <hr>
+                <div th:text="${questionDTO.description}"></div>
+                <hr>
+
+            </div>
+
+            <div id="comment">
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#"><img class="media-object img-thumbnail" th:src="${questionDTO.user.avatarUrl}"></a>
+                    </div>
+
+                    <div class="media-body">
+                        <h4 class="media-heading" th:text="${questionDTO.user.name}"></h4>
+                    </div>
+                </div>
+                <br>
+                <input type="hidden" name="questionDTOid" id="questionDTOid" th:value="${questionDTO.id}">
+                <textarea class="form-control" cols="30" rows="5" id="commentContent"></textarea>
+                <button type="submit" class="btn btn-success btn-publish" onclick="post()">回复</button>
+            </div>
 
         </div>
 

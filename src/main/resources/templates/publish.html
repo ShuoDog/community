@@ -33,16 +33,14 @@
                 <div class="form-group">
                     <label for="tag">添加标签</label>
                     <input type="text" class="form-control" id="tag" name="tag" th:value="${tag}"
-                           placeholder="请输入标签  以  ，分隔">
+                           placeholder="请输入标签  以  、分隔">
                 </div>
 
                 <div>
                     <div class="alert alert-danger alert-publish" th:text="${error}" th:if="${error!=null}"></div>
                     <button type="submit" class="btn btn-success btn-publish">发布</button>
                 </div>
-
             </form>
-
         </div>
 
         <div class="col-md-4 div-notice">
