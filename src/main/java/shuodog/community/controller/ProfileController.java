@@ -25,7 +25,7 @@ public class ProfileController {
     @GetMapping("/profile/{action}")
     public String profile(@PathVariable(name = "action") String action,
                           @RequestParam(name = "currentPage",defaultValue = "1")Integer currentPage,
-                          @RequestParam(name = "limit",defaultValue = "1 ")Integer limit,
+                          @RequestParam(name = "limit",defaultValue = "6")Integer limit,
                           HttpServletRequest request,
                           Model model) {
 
