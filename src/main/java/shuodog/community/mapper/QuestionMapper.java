@@ -33,5 +33,8 @@ public interface QuestionMapper {
     void update(Question question);
 
     @Update("update question set read_count=read_count+1 where id=#{id}")
-    void updateReadCount(Integer id);
+    void updateReadCount(@Param(value = "id") Integer id);
+
+    @Update("update question set comment_count=comment_count+1 where id=#{id}")
+    void updateCommentCount(@Param(value = "id") Integer id);
 }

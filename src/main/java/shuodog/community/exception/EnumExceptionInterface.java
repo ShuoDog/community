@@ -2,7 +2,7 @@ package shuodog.community.exception;
 
 public interface EnumExceptionInterface {
 
-    String getStateCode();
+    Integer getStateCode();
     String getStateMessage();
 
 }
