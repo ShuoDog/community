@@ -37,7 +37,7 @@ public class CommentController {
         comment.setType(commentDTO.getType());
         comment.setGmtCreate(System.currentTimeMillis());
         comment.setGmtModified(comment.getGmtCreate());
-        commentService.insert(comment);;
+        commentService.insert(comment);
         return ResultDTO.successRequest();
     }
 }

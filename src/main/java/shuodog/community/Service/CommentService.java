@@ -47,7 +47,7 @@ public class CommentService {
                 throw new ExceptionMessage(EnumExceptionImplements.COMMENT_NOT_FOUND);
             }
         }
-
         commentMapper.insert(comment);
+        System.out.println("评论成功");
     }
 }

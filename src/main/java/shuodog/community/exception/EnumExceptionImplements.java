@@ -9,10 +9,10 @@ public enum EnumExceptionImplements implements EnumExceptionInterface {
     INTERNAL_SERVER_ERROR(500, "服务器内部错误!"),
     SERVER_BUSY(503,"服务器正忙，请稍后再试!"),
 
-    TYPE_NOT_FOUND(1997,"评论类型不存在"),
-    USER_NOT_FOUND(1998,"用户未登录请重新登录"),
-    QUESTION_NOT_FOUND(1999,"问题不存在或者已经被删除"),
-    COMMENT_NOT_FOUND(2000,"评论不存在或者已经被删除");
+    USER_NOT_FOUND(1999,"用户未登录,请登录后重试"),
+    QUESTION_NOT_FOUND(2000,"问题不存在或者已经被删除"),
+    TYPE_NOT_FOUND(2001,"评论失败，未能正确回复问题或者回复评论"),
+    COMMENT_NOT_FOUND(2000,"未能找到正在回复的问题或评论");
 
     private final Integer stateCode;
     private final String stateMessage;

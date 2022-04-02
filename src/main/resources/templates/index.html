@@ -9,6 +9,19 @@
     <script src="js/jquery-3.6.0.js" type="application/javascript"></script>
     <script src="js/bootstrap.min.js" type="application/javascript"></script>
 </head>
+
+<script type="application/javascript">
+    window.onload = function (){
+        debugger;
+        var localData = window.localStorage.getItem("localData");
+        if(localData =="true"){
+            window.close();
+            window.localStorage.removeItem("localData");
+        }
+        console.log(localData);
+    }
+</script>
+
 <body>
 
 <div th:insert="~{navigation :: nav}"></div>
