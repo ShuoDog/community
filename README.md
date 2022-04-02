@@ -348,11 +348,12 @@ An error happened during template parsing (template: "class path resource [templ
 该功能虽然是修改，但是需要修改数据库本身的值，而不是通过传值修改
 这需要注意，否则在多点击的时候，数据容易相互覆盖
 
+进度21增加回复功能
+先把主题的逻辑写了出来，没有写界面
+所以用postman来模拟post请求
+回复不同于问题的发布，需要判断和处理的逻辑很多
+数据表里的值许多非空，并且需要和其他表的数据一一对应
+故而需要多种的判断，所以把判断放在异常机制里面写
+在用户的操作有问题的时候抛出异常提醒，并且返回相应的界面
 
 
-
-
-
-
-记录一下mybatis.generator命令
-mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
