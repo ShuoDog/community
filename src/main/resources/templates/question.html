@@ -25,7 +25,6 @@
                             <span th:text="${#dates.format(questionDTO.gmtModified, 'yyyy-MM-dd')}"></span>
                 </span>
                 &nbsp;|&nbsp;
-
                 <a th:href="@{'/publish/'+${questionDTO.id}}" th:if="${session.user!=null&&session.user.id==questionDTO.creator}">
                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>编辑
                 </a>
@@ -35,6 +34,65 @@
                 <hr>
 
             </div>
+
+            <h4>
+                <span th:text="${questionDTO.commentCount}"></span>个回复
+            </h4>
+
+            <hr>
+            <div>
+                <div class="media" th:each="commentDisplayDTO:${oneList.commentDisplayDTOList}">
+                    <div class="media-left">
+                        <a href="#"><img class="media-object img-thumbnail" th:src="${commentDisplayDTO.user.avatarUrl}"></a>
+                    </div>
+
+                    <div class="media-body">
+                        <h4 class="media-heading" th:text="${commentDisplayDTO.user.name}"></h4>
+                        <div th:text="${commentDisplayDTO.content}">样式回复内容,反正是样式，没有关系，随便多写<br>点，多写点<br>还好看呢,我真<br>的随便<br>乱111111111111111111111111111111111111111111111111111111111111111111写点真的</div>
+                        <br>
+                        <div>
+                            <span class="icon glyphicon glyphicon-thumbs-up"></span>&nbsp;&nbsp;&nbsp;
+                            <span class="icon glyphicon glyphicon-comment"></span>
+                            <span class="pull-right" th:text="${#dates.format(commentDisplayDTO.gmtModified, 'yyyy-MM-dd')}"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+
+                        <li th:if="${oneList.showFirstPage}">
+                            <a href="/?page=1" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li th:if="${oneList.showPreviousPage}">
+                            <a th:href="@{/(currentPage=${oneList.currentPage - 1})}" aria-label="Previous">
+                                <span aria-hidden="true">&lt;</span>
+                            </a>
+                        </li>
+
+                        <li th:each="currentPage : ${oneList.pages}" th:class="${oneList.currentPage==currentPage}? 'active': ''">
+                            <a th:href="@{/(currentPage=${currentPage})}" th:text="${currentPage}"></a>
+                        </li>
+
+                        <li th:if="${oneList.showNextPage}">
+                            <a th:href="@{/(currentPage=${oneList.currentPage + 1})}" aria-label="Next">
+                                <span aria-hidden="true">&gt;</span>
+                            </a>
+                        </li>
+                        <li th:if="${oneList.showEndPage}">
+                            <a th:href="@{/(currentPage=${oneList.totalPage})}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+            </div>
+
+            <hr>
 
             <div id="comment">
                 <div class="media">
@@ -51,6 +109,9 @@
                 <textarea class="form-control" cols="30" rows="5" id="commentContent"></textarea>
                 <button type="submit" class="btn btn-success btn-publish" onclick="post()">回复</button>
             </div>
+
+
+
 
         </div>
 

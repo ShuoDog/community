@@ -28,3 +28,11 @@ body{
     font-weight: normal;
     color: gray;
 }
+
+.icon{
+    color: gray;
+    cursor: pointer;
+}
+.icon:hover{
+    color: blue;
+}

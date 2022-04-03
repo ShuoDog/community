@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import shuodog.community.Service.CommentService;
-import shuodog.community.dto.CommentDTO;
+import shuodog.community.dto.CommentTransmitDTO;
 import shuodog.community.dto.ResultDTO;
 import shuodog.community.exception.EnumExceptionImplements;
 import shuodog.community.model.Comment;
@@ -23,7 +23,7 @@ public class CommentController {
 
     @ResponseBody
     @RequestMapping(value = "/comment",method = RequestMethod.POST)
-    public Object post(@RequestBody CommentDTO commentDTO,
+    public Object post(@RequestBody CommentTransmitDTO commentTransmitDTO,
                        HttpServletRequest request){
         User user = (User)request.getSession().getAttribute("user");
         if(user==null){
@@ -32,9 +32,9 @@ public class CommentController {
 
         Comment comment =new Comment();
         comment.setCommentator(user.getId());
-        comment.setParentId(commentDTO.getParentId());
-        comment.setContent(commentDTO.getContent());
-        comment.setType(commentDTO.getType());
+        comment.setParentId(commentTransmitDTO.getParentId());
+        comment.setContent(commentTransmitDTO.getContent());
+        comment.setType(commentTransmitDTO.getType());
         comment.setGmtCreate(System.currentTimeMillis());
         comment.setGmtModified(comment.getGmtCreate());
         commentService.insert(comment);

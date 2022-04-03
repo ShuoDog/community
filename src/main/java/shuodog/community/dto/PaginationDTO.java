@@ -8,6 +8,7 @@ import java.util.List;
 @Data
 public class PaginationDTO {
     private List<QuestionDTO> questionDTOList;
+    private List<CommentDisplayDTO> commentDisplayDTOList;
     private List<Integer> pages = new ArrayList<>();
     private Integer currentPage;
     private Integer totalPage;
